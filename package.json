@@ -6,6 +6,9 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.168",
+    "lodash": "^4.17.21",
+    "spliddit": "^2.1.1",
     "vue": "^3.0.0"
   },
   "devDependencies": {

@@ -1,89 +1,80 @@
 <template>
-  <div class="App">
-    <header class="App-header">
-      <img src="/logo.svg" class="App-logo" alt="logo" />
-      <p>
-        Edit
-        <code>src/App.vue</code> and save to reload.
-      </p>
-      <p class="App-tsx">
-        <FooTsxVue />
-        <FooTsx />
-        <BarJsxVue />
-        <BarJsx />
-      </p>
-      <a class="App-link" href="https://vuejs.org" target="_blank" rel="noopener noreferrer">{{
-        state.message
-      }}</a>
-    </header>
+  <div class="app-container">
+    <div class="app">
+      <h1>charcode.info</h1>
+      <BaseInput v-model:modelValue="inputText" />
+      <TranslationTable :text="inputText" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive} from 'vue';
-import FooTsxVue from './components/FooTsx.vue';
-import FooTsx from './components/Foo';
-import BarJsxVue from './components/BarJsx.vue';
-import BarJsx from './components/Bar';
+import { computed, ComputedRef, defineComponent, Ref, ref } from "vue";
+import BaseInput from "./components/BaseInput.vue";
+import TranslationTable from "./components/TranslationTable.vue";
 
-interface State {
-  message: string;
-}
+import _ from "lodash";
 
 export default defineComponent({
-  components: {
-    FooTsxVue,
-    FooTsx,
-    BarJsxVue,
-    BarJsx,
-  },
+  components: { BaseInput, TranslationTable },
   setup() {
-    const state = reactive({
-      message: 'Learn Vue',
+    const inputText: Ref<string> = ref("");
+    const decimalCodes: ComputedRef<number[]> = computed(() => {
+      const length = inputText.value.length;
+      return _.range(0, length).map((index) =>
+        inputText.value.charCodeAt(index)
+      );
+    });
+    const hexCodes = computed(() => {
+      return decimalCodes.value.map((decimalValue) =>
+        decimalValue.toString(16)
+      );
     });
     return {
-      state,
+      inputText,
+      decimalCodes,
+      hexCodes,
     };
   },
 });
 </script>
 
 <style>
-.App {
-  text-align: center;
-}
-.App-header {
-  background-color: #f9f6f6;
-  color: #32485f;
-  min-height: 100vh;
+.app-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  min-width: 100vw;
+  height: 100vh;
+  color: white;
+  background-image: linear-gradient(
+    -45deg,
+    rgb(0, 255, 255),
+    rgb(51, 51, 250),
+    rgb(158, 0, 158)
+  );
+  animation: gradient 60s ease infinite;
+  background-size: 400% 400%;
 }
-.App-link {
-  color: #00c185;
-}
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-  margin-bottom: 1rem;
-  animation: App-logo-spin infinite 1.6s ease-in-out alternate;
-}
-.App-tsx {
-  display: flex;
-}
-.App-tsx > div {
-  margin-left: 30px;
-  font-size: 16px;
-}
-@keyframes App-logo-spin {
-  from {
-    transform: scale(1);
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
   }
-  to {
-    transform: scale(1.06);
+  50% {
+    background-position: 100% 50%;
   }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.app {
+  min-width: 50vh;
+}
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: lowercase;
 }
 </style>
