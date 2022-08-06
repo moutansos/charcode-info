@@ -5,6 +5,9 @@
       <BaseInput v-model:modelValue="inputText" />
       <TranslationTable :text="inputText" />
     </div>
+    <footer>
+      Check out my blog: <a class="link" href="https://benbrougher.tech">benbrougher.tech</a>
+    </footer>
   </div>
 </template>
 
@@ -42,6 +45,7 @@ export default defineComponent({
 <style>
 .app-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-width: 100vw;
@@ -71,10 +75,28 @@ export default defineComponent({
 
 .app {
   min-width: 50vh;
+  height: 50vh;
+  margin-top: 40vh;
 }
 
 h1 {
   font-family: Arial, Helvetica, sans-serif;
   text-transform: lowercase;
+}
+
+footer {
+  text-align: center;
+}
+
+.link {
+  color: white;
+}
+
+.link:visited {
+  color: grey;
+}
+
+.link:hover {
+  color: blueviolet;
 }
 </style>
