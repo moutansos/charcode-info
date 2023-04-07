@@ -1,42 +1,44 @@
 <template>
-  <table v-if="text">
-    <tr>
-      <th>Characters</th>
-      <td
-        align="center"
-        valign="center"
-        class="center-text"
-        v-for="character in characters"
-        :key="character"
-      >
-        {{ character }}
-      </td>
-    </tr>
-    <tr>
-      <th>Decimal</th>
-      <td
-        align="center"
-        valign="center"
-        class="center-text"
-        v-for="decimal in decimalCodes"
-        :key="decimal"
-      >
-        {{ decimal }}
-      </td>
-    </tr>
-    <tr>
-      <th>Hex</th>
-      <td
-        align="center"
-        valign="center"
-        class="center-text"
-        v-for="hexCode in hexCodes"
-        :key="hexCode"
-      >
-        {{ hexCode }}
-      </td>
-    </tr>
-  </table>
+  <div class="table-wrapper" v-if="text">
+    <table>
+      <tr>
+        <th>Characters</th>
+        <td
+          align="center"
+          valign="center"
+          class="center-text"
+          v-for="(character, j) in characters"
+          :key="j"
+        >
+          {{ character }}
+        </td>
+      </tr>
+      <tr>
+        <th>Decimal</th>
+        <td
+          align="center"
+          valign="center"
+          class="center-text"
+          v-for="(decimal, j) in decimalCodes"
+          :key="j"
+        >
+          {{ decimal }}
+        </td>
+      </tr>
+      <tr>
+        <th>Hex</th>
+        <td
+          align="center"
+          valign="center"
+          class="center-text"
+          v-for="(hexCode, j) in hexCodes"
+          :key="j"
+        >
+          {{ hexCode }}
+        </td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script lang="ts">
@@ -88,5 +90,26 @@ export default defineComponent({
 .center-text {
   text-align: center;
   vertical-align: middle;
+}
+
+.table-wrapper {
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px;
+  font-family: monospace;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td:not(:last-child)  {
+  border-right: 2px solid white;
+}
+
+td {
+  margin: 5px;
+  padding: 5px;
 }
 </style>
